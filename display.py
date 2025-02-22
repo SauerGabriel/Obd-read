@@ -9,17 +9,25 @@ connection = obd.OBD(portname="COM3")  # Replace with your actual COM port
 # Define shift point (3000 RPM)
 shift_point = 3000
 
-# Function to show the visual alert
+# Function to show a persistent visual alert window
 def show_shift_alert():
-    # Create the main window
+    # Create a new Tkinter window
     root = tk.Tk()
-    root.withdraw()  # Hide the main window
+    root.title("Shift Alert")
 
-    # Show a message box with a shift alert
-    messagebox.showwarning("Shift Alert", "Time to shift gears!")
+    # Set the window size (optional)
+    root.geometry("300x150")
 
-    # Close the alert window after it's acknowledged
-    root.destroy()
+    # Add a label with the alert message
+    label = tk.Label(root, text="Time to shift gears!", font=("Arial", 14))
+    label.pack(pady=40)
+
+    # Add a button to close the alert window
+    close_button = tk.Button(root, text="OK", command=root.destroy)
+    close_button.pack(pady=10)
+
+    # Keep the window open until the user clicks OK
+    root.mainloop()
 
 while True:
     # Get current RPM
